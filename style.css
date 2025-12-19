@@ -32,13 +32,14 @@ nav ul {
     padding: 0;
     margin: 0;
     display: flex;
-    gap: 2rem;
+    gap: 1.2rem;
 }
 
 nav a {
     color: #ffffff;
     text-decoration: none;
     transition: color 0.3s;
+    font-size: 1rem;
 }
 
 nav a:hover {
