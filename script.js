@@ -31,12 +31,33 @@ if (contactForm) {
         const message = document.getElementById('message').value;
         
         // In a real application, you would send this data to a server
-        // For now, we'll just show an alert
-        alert(`Thank you for your message, ${name}! I'll get back to you soon at ${email}.`);
+        // Show success message
+        showFormMessage(`Thank you for your message, ${name}! I'll get back to you soon at ${email}.`, 'success');
         
         // Reset form
         contactForm.reset();
     });
+}
+
+// Show form message function
+function showFormMessage(message, type) {
+    // Create message element if it doesn't exist
+    let messageDiv = document.getElementById('formMessage');
+    if (!messageDiv) {
+        messageDiv = document.createElement('div');
+        messageDiv.id = 'formMessage';
+        messageDiv.className = 'form-message';
+        contactForm.insertBefore(messageDiv, contactForm.firstChild);
+    }
+    
+    messageDiv.textContent = message;
+    messageDiv.className = `form-message ${type}`;
+    messageDiv.style.display = 'block';
+    
+    // Hide message after 5 seconds
+    setTimeout(() => {
+        messageDiv.style.display = 'none';
+    }, 5000);
 }
 
 // Smooth scrolling for anchor links
@@ -55,29 +76,36 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// Add animation on scroll
-const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -100px 0px'
-};
+// Add animation on scroll with feature detection
+if ('IntersectionObserver' in window) {
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -100px 0px'
+    };
 
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.style.opacity = '1';
-            entry.target.style.transform = 'translateY(0)';
-        }
-    });
-}, observerOptions);
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('animate-in');
+            }
+        });
+    }, observerOptions);
 
-// Observe elements for animation
-document.addEventListener('DOMContentLoaded', () => {
-    const animatedElements = document.querySelectorAll('.highlight-card, .project-card, .skill-category');
-    
-    animatedElements.forEach(el => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(20px)';
-        el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-        observer.observe(el);
+    // Observe elements for animation
+    document.addEventListener('DOMContentLoaded', () => {
+        const animatedElements = document.querySelectorAll('.highlight-card, .project-card, .skill-category');
+        
+        animatedElements.forEach(el => {
+            el.classList.add('animate-element');
+            observer.observe(el);
+        });
     });
-});
+} else {
+    // Fallback for browsers without IntersectionObserver support
+    document.addEventListener('DOMContentLoaded', () => {
+        const animatedElements = document.querySelectorAll('.highlight-card, .project-card, .skill-category');
+        animatedElements.forEach(el => {
+            el.classList.add('animate-in');
+        });
+    });
+}
