@@ -103,6 +103,7 @@ nav a:hover {
 .services, .about, .projects, .contact {
     padding: 4rem 2rem;
     text-align: center;
+    margin-top: 4rem;
 }
 
 .services h2, .about h2, .projects h2, .contact h2 {
