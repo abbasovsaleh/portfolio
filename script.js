@@ -31,8 +31,8 @@ if (contactForm) {
         const message = document.getElementById('message').value;
         
         // In a real application, you would send this data to a server
-        // Show success message
-        showFormMessage(`Thank you for your message, ${name}! I'll get back to you soon at ${email}.`, 'success');
+        // Show success message without displaying email address
+        showFormMessage(`Thank you for your message, ${name}! I'll get back to you soon.`, 'success');
         
         // Reset form
         contactForm.reset();
@@ -41,6 +41,8 @@ if (contactForm) {
 
 // Show form message function
 function showFormMessage(message, type) {
+    if (!contactForm) return; // Ensure form exists
+    
     // Create message element if it doesn't exist
     let messageDiv = document.getElementById('formMessage');
     if (!messageDiv) {
@@ -50,6 +52,7 @@ function showFormMessage(message, type) {
         contactForm.insertBefore(messageDiv, contactForm.firstChild);
     }
     
+    // Sanitize message by using textContent instead of innerHTML
     messageDiv.textContent = message;
     messageDiv.className = `form-message ${type}`;
     messageDiv.style.display = 'block';

@@ -4,7 +4,9 @@ A modern, responsive portfolio website showcasing my work, skills, and professio
 
 ## 🌐 Live Demo
 
-This portfolio is deployed on GitHub Pages and can be accessed at: `https://abbasovsaleh.github.io/portfolio/`
+This portfolio is deployed on GitHub Pages and can be accessed at: `https://<username>.github.io/portfolio/`
+
+Replace `<username>` with your GitHub username.
 
 ## ✨ Features
 
